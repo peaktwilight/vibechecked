@@ -1,132 +1,140 @@
-name: "Vibecheck"
-description: "AI-powered UI design review for pull requests"
-branding:
-  icon: "eye"
-  color: "purple"
+name: 'vibechecked'
+description: 'Automated UI design review — roast your deploy previews on every PR'
+author: 'peaktwilight'
 
 inputs:
   url:
-    description: "The deployed preview URL to check"
+    description: 'The deployed preview URL to check'
     required: true
   threshold:
-    description: "Minimum overall score to pass (exit 1 if below)"
+    description: 'Minimum overall score to pass (exits with code 1 if below)'
     required: false
-    default: "50"
+    default: '0'
+  mode:
+    description: 'Analysis mode: "no-ai" (heuristic, default for CI) or "ai" (requires Claude CLI)'
+    required: false
+    default: 'no-ai'
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
-    - name: Set up Node.js
+    - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: "18"
+        node-version: '22'
 
-    - name: Install Playwright dependencies
+    - name: Install dependencies
       shell: bash
-      run: npx playwright install --with-deps chromium
+      run: |
+        cd ${{ github.action_path }}
+        npm ci
+        npx playwright install chromium --with-deps
 
-    - name: Run vibecheck
+    - name: Build
+      shell: bash
+      run: |
+        cd ${{ github.action_path }}
+        npm run build
+
+    - name: Run vibechecked
       id: vibecheck
       shell: bash
-      env:
-        URL: ${{ inputs.url }}
-        THRESHOLD: ${{ inputs.threshold }}
       run: |
-        set -euo pipefail
-        OUTPUT=$(npx vibechecked --json "$URL" 2>/dev/null)
+        cd ${{ github.action_path }}
+        RESULT=$(node dist/cli.js --json --no-ai "${{ inputs.url }}" 2>/dev/null || node dist/cli.js --json --no-ai "${{ inputs.url }}")
+        echo "result<<EOF" >> $GITHUB_OUTPUT
+        echo "$RESULT" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
 
-        # Parse fields from JSON
-        OVERALL=$(echo "$OUTPUT" | jq -r '.scores.overall')
-        ORIGINALITY=$(echo "$OUTPUT" | jq -r '.scores.originality')
-        LAYOUT=$(echo "$OUTPUT" | jq -r '.scores.layout')
-        TYPOGRAPHY=$(echo "$OUTPUT" | jq -r '.scores.typography')
-        COLOR=$(echo "$OUTPUT" | jq -r '.scores.color')
-        VIBE_PROB=$(echo "$OUTPUT" | jq -r '.vibe_coded_probability')
-        VERDICT=$(echo "$OUTPUT" | jq -r '.verdict')
+        # Extract score for threshold check
+        SCORE=$(echo "$RESULT" | node -e "const d=require('fs').readFileSync('/dev/stdin','utf8');const j=JSON.parse(d);console.log(j.scores.overall)")
+        echo "score=$SCORE" >> $GITHUB_OUTPUT
 
-        # Build lists
-        RED_FLAGS=$(echo "$OUTPUT" | jq -r '(.red_flags // []) | map("- " + .) | join("\n")')
-        GOOD_PARTS=$(echo "$OUTPUT" | jq -r '(.good_parts // []) | map("- " + .) | join("\n")')
-
-        # Store scalar outputs
-        {
-          echo "overall=$OVERALL"
-          echo "originality=$ORIGINALITY"
-          echo "layout=$LAYOUT"
-          echo "typography=$TYPOGRAPHY"
-          echo "color=$COLOR"
-          echo "vibe_prob=$VIBE_PROB"
-          echo "verdict=$VERDICT"
-        } >> "$GITHUB_OUTPUT"
-
-        # Store multiline outputs
-        {
-          echo "roast<<ROAST_EOF"
-          echo "$OUTPUT" | jq -r '.roast'
-          echo "ROAST_EOF"
-        } >> "$GITHUB_OUTPUT"
-
-        {
-          echo "red_flags<<RF_EOF"
-          echo "$RED_FLAGS"
-          echo "RF_EOF"
-        } >> "$GITHUB_OUTPUT"
-
-        {
-          echo "good_parts<<GP_EOF"
-          echo "$GOOD_PARTS"
-          echo "GP_EOF"
-        } >> "$GITHUB_OUTPUT"
-
-    - name: Find existing comment
-      uses: peter-evans/find-comment@v3
-      id: find-comment
+    - name: Comment on PR
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
       with:
-        issue-number: ${{ github.event.pull_request.number }}
-        comment-author: "github-actions[bot]"
-        body-includes: "<!-- vibecheck-scorecard -->"
+        script: |
+          const result = JSON.parse(`${{ steps.vibecheck.outputs.result }}`);
+          const url = '${{ inputs.url }}';
+          const s = result.scores;
 
-    - name: Post or update PR comment
-      uses: peter-evans/create-or-update-comment@v4
-      with:
-        comment-id: ${{ steps.find-comment.outputs.comment-id }}
-        issue-number: ${{ github.event.pull_request.number }}
-        edit-mode: replace
-        body: |
-          <!-- vibecheck-scorecard -->
-          ## Vibecheck Scorecard
+          const bar = (val) => {
+            const filled = Math.round(val / 5);
+            const empty = 20 - filled;
+            return '\u2588'.repeat(filled) + '\u2591'.repeat(empty);
+          };
 
-          **Overall: ${{ steps.vibecheck.outputs.overall }}/100** — _${{ steps.vibecheck.outputs.verdict }}_
+          const verdictEmoji = {
+            'CERTIFIED ORIGINAL': '\uD83C\uDFC6',
+            'MOSTLY FRESH': '\u2705',
+            'KINDA MID': '\uD83D\uDE10',
+            'GENERIC AF': '\u26A0\uFE0F',
+            'VIBE-CODED CLONE': '\uD83D\uDC80',
+          };
 
-          | Dimension | Score |
-          |-----------|-------|
-          | Originality | ${{ steps.vibecheck.outputs.originality }}/100 |
-          | Layout | ${{ steps.vibecheck.outputs.layout }}/100 |
-          | Typography | ${{ steps.vibecheck.outputs.typography }}/100 |
-          | Color | ${{ steps.vibecheck.outputs.color }}/100 |
+          const emoji = verdictEmoji[result.verdict] || '\uD83D\uDD0D';
 
-          **Vibe-coded probability:** ${{ steps.vibecheck.outputs.vibe_prob }}%
+          const body = `## ${emoji} vibechecked: ${result.verdict}
 
-          ### The Roast
-          > ${{ steps.vibecheck.outputs.roast }}
+          **URL:** ${url}
+          **Overall Score:** ${s.overall}/100
+          **Vibe-coded probability:** ${result.vibe_coded_probability}%
 
-          ### Red Flags
-          ${{ steps.vibecheck.outputs.red_flags }}
+          | Dimension | Score | |
+          |-----------|-------|-|
+          | Originality | ${s.originality} | \`${bar(s.originality)}\` |
+          | Layout | ${s.layout} | \`${bar(s.layout)}\` |
+          | Typography | ${s.typography} | \`${bar(s.typography)}\` |
+          | Color | ${s.color} | \`${bar(s.color)}\` |
 
-          ### Good Parts
-          ${{ steps.vibecheck.outputs.good_parts }}
+          ### \uD83D\uDD25 The Roast
+          > ${result.roast}
+
+          ${result.red_flags.length > 0 ? '### \uD83D\uDEA9 Red Flags\n' + result.red_flags.map(f => `- ${f}`).join('\n') : ''}
+
+          ${result.good_parts.length > 0 ? '### \u2705 What\'s Good\n' + result.good_parts.map(g => `- ${g}`).join('\n') : ''}
 
           ---
-          _Posted by [vibechecked](https://github.com/peaktwilight/vibecheck) · [npm](https://www.npmjs.com/package/vibechecked)_
+          *[vibechecked](https://github.com/peaktwilight/vibechecked) — the only design review that doesn't care about your feelings*`;
+
+          // Find and update existing comment or create new
+          const { data: comments } = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          });
+
+          const existing = comments.find(c => c.body.includes('vibechecked:'));
+
+          if (existing) {
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: existing.id,
+              body,
+            });
+          } else {
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
+          }
 
     - name: Check threshold
+      if: inputs.threshold != '0'
       shell: bash
-      env:
-        OVERALL: ${{ steps.vibecheck.outputs.overall }}
-        THRESHOLD: ${{ inputs.threshold }}
       run: |
-        if [ "$OVERALL" -lt "$THRESHOLD" ]; then
-          echo "::error::Vibecheck score $OVERALL is below threshold $THRESHOLD"
+        SCORE=${{ steps.vibecheck.outputs.score }}
+        THRESHOLD=${{ inputs.threshold }}
+        if [ "$SCORE" -lt "$THRESHOLD" ]; then
+          echo "::error::vibechecked score ($SCORE) is below threshold ($THRESHOLD)"
           exit 1
         fi
-        echo "Vibecheck score $OVERALL meets threshold $THRESHOLD"
+        echo "vibechecked score ($SCORE) meets threshold ($THRESHOLD) ✅"
+
+branding:
+  icon: 'eye'
+  color: 'green'
