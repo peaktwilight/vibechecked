@@ -6,7 +6,7 @@
 
 > Paste a URL. Get roasted. Find out if your UI is actually good or just another vibe-coded clone.
 
-[vibecheck.doruk.ch](https://vibecheck.doruk.ch) | [npm](https://www.npmjs.com/package/vibechecked)
+[vibechecked.doruk.ch](https://vibechecked.doruk.ch) | [npm](https://www.npmjs.com/package/vibechecked)
 
 ## What is this?
 
