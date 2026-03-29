@@ -96,7 +96,7 @@ const verdicts = [
               </div>
               <div class="flex-1 mx-8">
                 <div class="bg-[#1a1a1a] rounded-md px-3 py-1 text-center">
-                  <span class="text-[10px] text-gray-500 font-mono">vibecheck vercel.com</span>
+                  <span class="text-[10px] text-gray-500 font-mono">npx vibechecked vercel.com</span>
                 </div>
               </div>
               <div class="w-[52px]"></div>
@@ -106,7 +106,7 @@ const verdicts = [
             <div class="p-3 sm:p-6 font-mono text-[11px] sm:text-sm leading-relaxed space-y-3">
               <!-- Command -->
               <div class="terminal-line text-gray-500" style="animation-delay: 0.3s;">
-                <span class="text-green-accent">$</span> vibecheck vercel.com
+                <span class="text-green-accent">$</span> npx vibechecked vercel.com
               </div>
 
               <div class="terminal-line text-gray-600 text-xs" style="animation-delay: 0.6s;">Analyzing screenshot...</div>
@@ -212,7 +212,7 @@ const verdicts = [
           </button>
         </div>
         <p id="jk-text" class="text-gray-600 text-xs mt-3 opacity-0 transition-all duration-500 translate-y-2">
-          Just kidding — it runs locally. <a href="https://github.com/peaktwilight/vibecheck" target="_blank" rel="noopener" class="text-green-accent hover:underline">Clone the repo</a> and roast yourself.
+          Just kidding — it runs locally. Run <code class="text-green-accent">npx vibechecked</code> or <a href="https://github.com/peaktwilight/vibecheck" target="_blank" rel="noopener" class="text-green-accent hover:underline">clone the repo</a> and roast yourself.
         </p>
       </div>
     </section>
@@ -400,12 +400,12 @@ const verdicts = [
         <h2 class="font-mono text-3xl md:text-5xl font-bold text-white mb-4">
           Try it <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">now</span>
         </h2>
-        <p class="text-gray-500 mb-10">Clone, build, roast. Under 60 seconds.</p>
+        <p class="text-gray-500 mb-10">One command. Under 60 seconds.</p>
 
         <!-- Big copy-able command -->
         <div class="relative group">
           <div class="rounded-xl border border-gray-800 bg-[#111] p-6 font-mono text-left">
-            <div class="text-gray-500 text-xs mb-3"># install and run (once published)</div>
+            <div class="text-gray-500 text-xs mb-3"># install and run</div>
             <div class="text-green-accent text-sm sm:text-base" id="install-cmd">npx vibechecked https://your-site.com</div>
             <div class="text-gray-500 text-xs mt-4 mb-1"># or clone for development</div>
             <div class="text-gray-300 text-sm">git clone https://github.com/peaktwilight/vibecheck && cd vibecheck && npm i && npm run build</div>

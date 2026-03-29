@@ -1,11 +1,12 @@
 # vibecheck
 
+[![npm](https://img.shields.io/npm/v/vibechecked)](https://www.npmjs.com/package/vibechecked)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue.svg)
 
 > Paste a URL. Get roasted. Find out if your UI is actually good or just another vibe-coded clone.
 
-[vibecheck.doruk.ch](https://vibecheck.doruk.ch)
+[vibecheck.doruk.ch](https://vibecheck.doruk.ch) | [npm](https://www.npmjs.com/package/vibechecked)
 
 ## What is this?
 
@@ -22,25 +23,20 @@ Vibecheck screenshots any website, sends it to Claude for brutal design analysis
 ## Quick Start
 
 ```bash
-git clone https://github.com/peaktwilight/vibecheck
-cd vibecheck
-npm install
-npx playwright install chromium
-npm run build
-node dist/cli.js https://your-app.vercel.app
+npx vibechecked https://your-site.com
 ```
 
 ## Usage
 
 ```bash
 # Single site
-vibecheck https://my-app.vercel.app
+npx vibechecked https://my-app.vercel.app
 
 # Compare two sites head-to-head
-vibecheck --compare vercel.com linear.app
+npx vibechecked --compare vercel.com linear.app
 
 # JSON output (pipe it, parse it, automate it)
-vibecheck --json https://example.com
+npx vibechecked --json https://example.com
 ```
 
 ## Compare mode
@@ -48,7 +44,7 @@ vibecheck --json https://example.com
 Pit two sites against each other. Vibecheck analyzes both in parallel and declares a winner.
 
 ```bash
-vibecheck --compare vercel.com linear.app
+npx vibechecked --compare vercel.com linear.app
 ```
 
 Example output:
@@ -74,7 +70,7 @@ Example output:
 Get structured data for scripts, dashboards, or CI pipelines.
 
 ```bash
-vibecheck --json https://example.com
+npx vibechecked --json https://example.com
 ```
 
 Returns the full analysis as JSON — scores, roast, red flags, verdict, and vibe-coded probability.
@@ -124,6 +120,17 @@ Vibecheck generates a 1200x630 PNG scorecard (Twitter/OG image optimized) you ca
 - Node.js 18+
 - [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) (`claude`) — used for vision analysis
 - Playwright Chromium (`npx playwright install chromium`)
+
+## Development
+
+```bash
+git clone https://github.com/peaktwilight/vibecheck
+cd vibecheck
+npm install
+npx playwright install chromium
+npm run build
+node dist/cli.js https://your-app.vercel.app
+```
 
 ## How it works
 
