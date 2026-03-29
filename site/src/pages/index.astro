@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Camera, Search, Flame, Palette, Layout as LayoutIcon, Type, Droplets, ShieldAlert, Sparkles, Github, Star, ExternalLink, ChevronDown, Copy, Check, Share2, Layers, Grid3x3, Smartphone, Moon, Circle, Fingerprint, Award } from 'lucide-astro';
 
 const scores = [
   { label: 'Originality', value: 62, color: '#eab308' },
@@ -10,15 +11,15 @@ const scores = [
 ];
 
 const redFlags = [
-  { icon: '🟣', label: 'Purple gradients' },
-  { icon: '🪟', label: 'Glassmorphism' },
-  { icon: '📐', label: 'Hero > Features > Pricing layout' },
-  { icon: '🌈', label: 'Gradient text' },
-  { icon: '🏢', label: '"Trusted by" logo bars' },
-  { icon: '🃏', label: '3-column feature cards' },
-  { icon: '📱', label: 'Floating angled mockups' },
-  { icon: '🌙', label: 'Dark mode + neon accents' },
-  { icon: '⭕', label: 'Excessive rounded corners' },
+  { label: 'Purple gradients', icon: 'palette' },
+  { label: 'Glassmorphism', icon: 'layers' },
+  { label: 'Hero > Features > Pricing layout', icon: 'layout' },
+  { label: 'Gradient text', icon: 'type' },
+  { label: '"Trusted by" logo bars', icon: 'award' },
+  { label: '3-column feature cards', icon: 'grid' },
+  { label: 'Floating angled mockups', icon: 'smartphone' },
+  { label: 'Dark mode + neon accents', icon: 'moon' },
+  { label: 'Excessive rounded corners', icon: 'circle' },
 ];
 
 const verdicts = [
@@ -28,12 +29,6 @@ const verdicts = [
   { label: 'GENERIC AF', color: '#f97316', bg: '#f9731615', border: '#f9731640' },
   { label: 'VIBE-CODED CLONE', color: '#ef4444', bg: '#ef444415', border: '#ef444440' },
 ];
-
-const steps = [
-  { num: '01', title: 'Screenshot', desc: 'Point it at any URL. Puppeteer captures a full-page screenshot.', icon: '📸' },
-  { num: '02', title: 'Analyze', desc: 'Claude examines every pixel for design patterns, cliches, and red flags.', icon: '🔍' },
-  { num: '03', title: 'Roast', desc: 'Get brutally honest scores, a roast, and your vibe-coded probability.', icon: '🔥' },
-];
 ---
 
 <Layout>
@@ -41,7 +36,7 @@ const steps = [
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
       <a href="/" class="font-mono text-lg font-bold text-white tracking-tight">
-        vibe<span class="text-green-accent">check</span>
+        vibe<span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">check</span>
       </a>
       <a
         href="https://github.com/peaktwilight/vibecheck"
@@ -50,7 +45,7 @@ const steps = [
         class="text-gray-400 hover:text-white transition-colors"
         aria-label="GitHub"
       >
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        <Github class="w-5 h-5" />
       </a>
     </div>
   </nav>
@@ -77,23 +72,34 @@ const steps = [
       <div class="relative z-10 text-center max-w-4xl mx-auto">
         <!-- Logo -->
         <h1 class="font-mono text-6xl sm:text-7xl md:text-8xl font-bold tracking-tighter text-white mb-4 animate-fade-in-up">
-          vibe<span class="text-green-accent">check</span>
+          vibe<span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">check</span>
         </h1>
 
-        <!-- Tagline -->
-        <p class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-12 animate-fade-in-up delay-200 font-sans">
+        <!-- Tagline with pulsing dot -->
+        <p class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-12 animate-fade-in-up delay-200 font-sans flex items-center justify-center gap-2">
+          <span class="relative flex h-2.5 w-2.5 shrink-0">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-accent opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-accent"></span>
+          </span>
           Is your UI actually good? Or just another vibe-coded clone?
         </p>
 
         <!-- Terminal -->
         <div class="animate-fade-in-up delay-400 w-full max-w-2xl mx-auto">
-          <div class="rounded-lg border border-gray-800 bg-[#111111] shadow-2xl shadow-black/50 overflow-hidden text-left">
+          <div class="rounded-xl border border-gray-800 bg-[#111111] shadow-2xl shadow-black/50 overflow-hidden text-left">
             <!-- Terminal header -->
-            <div class="flex items-center gap-2 px-4 py-3 bg-[#0d0d0d] border-b border-gray-800">
-              <div class="w-3 h-3 rounded-full bg-[#ff5f57]"></div>
-              <div class="w-3 h-3 rounded-full bg-[#febc2e]"></div>
-              <div class="w-3 h-3 rounded-full bg-[#28c840]"></div>
-              <span class="ml-2 text-xs text-gray-500 font-mono">vibecheck vercel.com</span>
+            <div class="flex items-center gap-2 px-4 py-2.5 bg-[#0d0d0d] border-b border-gray-800">
+              <div class="flex items-center gap-1.5">
+                <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-[#febc2e]"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-[#28c840]"></div>
+              </div>
+              <div class="flex-1 mx-8">
+                <div class="bg-[#1a1a1a] rounded-md px-3 py-1 text-center">
+                  <span class="text-[10px] text-gray-500 font-mono">vibecheck vercel.com</span>
+                </div>
+              </div>
+              <div class="w-[52px]"></div>
             </div>
 
             <!-- Terminal body -->
@@ -161,26 +167,27 @@ const steps = [
             rel="noopener"
             class="inline-flex items-center gap-2 px-6 py-3 bg-green-accent text-[#0a0a0a] font-mono font-semibold text-sm rounded-md hover:bg-green-400 transition-colors duration-200"
           >
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            <Github class="w-5 h-5" />
             Get Started
           </a>
         </div>
 
         <!-- GitHub star line -->
-        <p class="text-gray-500 font-mono text-sm mt-4 animate-fade-in-up delay-800">
-          <a href="https://github.com/peaktwilight/vibecheck" target="_blank" rel="noopener" class="hover:text-green-accent transition-colors">
+        <p class="text-gray-500 font-mono text-sm mt-4 animate-fade-in-up delay-800 flex items-center justify-center gap-2">
+          <a href="https://github.com/peaktwilight/vibecheck" target="_blank" rel="noopener" class="hover:text-green-accent transition-colors inline-flex items-center gap-1">
+            <Star class="w-3.5 h-3.5" />
             Star on GitHub
           </a>
-          <span class="mx-2">&middot;</span>
+          <span>&middot;</span>
           <span>Free &amp; open source</span>
-          <span class="mx-2">&middot;</span>
+          <span>&middot;</span>
           <span>MIT License</span>
         </p>
       </div>
 
       <!-- Scroll indicator -->
       <a href="#try-it" class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-30 cursor-pointer">
-        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        <ChevronDown class="w-5 h-5 text-gray-500" />
       </a>
     </section>
 
@@ -188,7 +195,7 @@ const steps = [
     <section id="try-it" class="relative py-24 px-4">
       <div class="max-w-xl mx-auto text-center">
         <h2 class="font-mono text-3xl sm:text-4xl font-bold text-white mb-6">
-          Think YOUR site would <span class="text-green-accent">pass</span>?
+          Think YOUR site would <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">pass</span>?
         </h2>
         <div class="flex gap-2">
           <input
@@ -225,51 +232,52 @@ const steps = [
       });
     </script>
 
-    <!-- ═══════════════ RED FLAGS ═══════════════ -->
-    <section class="relative py-24 px-4">
-      <div class="max-w-5xl mx-auto">
-        <div class="text-center mb-16">
-          <h2 class="font-mono text-3xl sm:text-4xl font-bold text-white mb-4">
-            Red flags it <span class="text-red-500">detects</span>
-          </h2>
-          <p class="text-gray-500 font-sans max-w-lg mx-auto">
-            If your site has three or more of these, you might have a problem.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {redFlags.map((flag, i) => (
-            <div class="group flex items-center gap-3 px-5 py-4 rounded-lg border border-gray-800/60 bg-[#111111]/50 hover:border-red-500/30 hover:bg-red-500/5 transition-all duration-300">
-              <span class="text-xl shrink-0">{flag.icon}</span>
-              <span class="text-sm text-gray-300 font-mono">{flag.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
     <!-- ═══════════════ HOW IT WORKS ═══════════════ -->
-    <section class="relative py-24 px-4">
+    <section class="relative py-28 px-4">
       <div class="max-w-4xl mx-auto">
         <div class="text-center mb-16">
-          <h2 class="font-mono text-3xl sm:text-4xl font-bold text-white mb-4">
-            How it <span class="text-green-accent">works</span>
+          <h2 class="font-mono text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+            How it <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">works</span>
           </h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {steps.map((step) => (
-            <div class="relative text-center group">
-              <div class="text-4xl mb-4">{step.icon}</div>
-              <div class="font-mono text-xs text-green-accent/60 mb-2">{step.num}</div>
-              <h3 class="font-mono text-lg font-bold text-white mb-2">{step.title}</h3>
-              <p class="text-sm text-gray-500 font-sans leading-relaxed">{step.desc}</p>
+          <div class="relative text-center group">
+            <div class="flex items-center justify-center mb-4">
+              <div class="w-14 h-14 rounded-xl bg-green-accent/10 border border-green-accent/20 flex items-center justify-center group-hover:bg-green-accent/15 transition-colors">
+                <Camera class="w-6 h-6 text-green-accent" />
+              </div>
             </div>
-          ))}
+            <div class="font-mono text-xs text-green-accent/60 mb-2">01</div>
+            <h3 class="font-mono text-lg font-bold text-white mb-2">Screenshot</h3>
+            <p class="text-base text-gray-500 font-sans leading-relaxed">Point it at any URL. Puppeteer captures a full-page screenshot.</p>
+          </div>
+
+          <div class="relative text-center group">
+            <div class="flex items-center justify-center mb-4">
+              <div class="w-14 h-14 rounded-xl bg-green-accent/10 border border-green-accent/20 flex items-center justify-center group-hover:bg-green-accent/15 transition-colors">
+                <Search class="w-6 h-6 text-green-accent" />
+              </div>
+            </div>
+            <div class="font-mono text-xs text-green-accent/60 mb-2">02</div>
+            <h3 class="font-mono text-lg font-bold text-white mb-2">Analyze</h3>
+            <p class="text-base text-gray-500 font-sans leading-relaxed">Claude examines every pixel for design patterns, cliches, and red flags.</p>
+          </div>
+
+          <div class="relative text-center group">
+            <div class="flex items-center justify-center mb-4">
+              <div class="w-14 h-14 rounded-xl bg-green-accent/10 border border-green-accent/20 flex items-center justify-center group-hover:bg-green-accent/15 transition-colors">
+                <Flame class="w-6 h-6 text-green-accent" />
+              </div>
+            </div>
+            <div class="font-mono text-xs text-green-accent/60 mb-2">03</div>
+            <h3 class="font-mono text-lg font-bold text-white mb-2">Roast</h3>
+            <p class="text-base text-gray-500 font-sans leading-relaxed">Get brutally honest scores, a roast, and your vibe-coded probability.</p>
+          </div>
         </div>
 
         <!-- Connector lines (desktop only) -->
-        <div class="hidden md:flex justify-center -mt-[7.5rem] mb-12 pointer-events-none">
+        <div class="hidden md:flex justify-center -mt-[10rem] mb-12 pointer-events-none">
           <div class="flex items-center gap-0 w-full max-w-md mx-auto px-16">
             <div class="flex-1 border-t border-dashed border-gray-800"></div>
             <div class="px-3 text-gray-700 font-mono text-xs">&rarr;</div>
@@ -281,14 +289,76 @@ const steps = [
       </div>
     </section>
 
+    <!-- ═══════════════ RED FLAGS ═══════════════ -->
+    <section class="relative py-28 px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="font-mono text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+            Red flags it <span class="text-red-500">detects</span>
+          </h2>
+          <p class="text-gray-500 font-sans max-w-lg mx-auto text-base mb-4">
+            If your site has three or more of these, you might have a problem.
+          </p>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono">
+            <ShieldAlert class="w-3.5 h-3.5" />
+            9 red flags we check for
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {redFlags.map((flag) => (
+            <div class="group flex items-center gap-3 px-5 py-4 rounded-lg border border-gray-800/60 bg-[#111111]/50 hover:border-red-500/40 hover:bg-red-500/5 hover:shadow-[0_0_20px_-5px_rgba(239,68,68,0.15)] transition-all duration-300">
+              <div class="shrink-0 text-red-500/70 group-hover:text-red-500 transition-colors">
+                {flag.icon === 'palette' && <Palette class="w-5 h-5" />}
+                {flag.icon === 'layers' && <Layers class="w-5 h-5" />}
+                {flag.icon === 'layout' && <LayoutIcon class="w-5 h-5" />}
+                {flag.icon === 'type' && <Type class="w-5 h-5" />}
+                {flag.icon === 'award' && <Award class="w-5 h-5" />}
+                {flag.icon === 'grid' && <Grid3x3 class="w-5 h-5" />}
+                {flag.icon === 'smartphone' && <Smartphone class="w-5 h-5" />}
+                {flag.icon === 'moon' && <Moon class="w-5 h-5" />}
+                {flag.icon === 'circle' && <Circle class="w-5 h-5" />}
+              </div>
+              <span class="text-sm text-gray-300 font-mono">{flag.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ SOCIAL PROOF ═══════════════ -->
+    <section class="relative py-28 px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="font-mono text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+            Built for developers who <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">care about design</span>
+          </h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+          <div class="py-6">
+            <div class="text-4xl font-bold font-mono text-green-accent mb-2">5</div>
+            <div class="text-sm text-gray-500">scoring dimensions</div>
+          </div>
+          <div class="py-6">
+            <div class="text-4xl font-bold font-mono text-green-accent mb-2">11</div>
+            <div class="text-sm text-gray-500">red flags detected</div>
+          </div>
+          <div class="py-6">
+            <div class="text-4xl font-bold font-mono text-green-accent mb-2">1</div>
+            <div class="text-sm text-gray-500">savage roast per URL</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ═══════════════ VERDICTS ═══════════════ -->
-    <section class="relative py-24 px-4">
+    <section class="relative py-28 px-4">
       <div class="max-w-3xl mx-auto">
         <div class="text-center mb-16">
-          <h2 class="font-mono text-3xl sm:text-4xl font-bold text-white mb-4">
-            The <span class="text-green-accent">verdicts</span>
+          <h2 class="font-mono text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+            The <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">verdicts</span>
           </h2>
-          <p class="text-gray-500 font-sans max-w-lg mx-auto">
+          <p class="text-gray-500 font-sans max-w-lg mx-auto text-base">
             Five tiers. No mercy.
           </p>
         </div>
@@ -308,20 +378,34 @@ const steps = [
     </section>
 
     <!-- ═══════════════ QUICK START ═══════════════ -->
-    <section class="relative py-24 px-4">
+    <section class="relative py-28 px-4">
       <div class="max-w-2xl mx-auto">
         <div class="text-center mb-12">
-          <h2 class="font-mono text-3xl sm:text-4xl font-bold text-white mb-4">
-            Quick <span class="text-green-accent">start</span>
+          <h2 class="font-mono text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+            Quick <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">start</span>
           </h2>
         </div>
 
-        <div class="rounded-lg border border-gray-800 bg-[#111111] overflow-hidden">
-          <div class="flex items-center gap-2 px-4 py-3 bg-[#0d0d0d] border-b border-gray-800">
-            <div class="w-3 h-3 rounded-full bg-[#ff5f57]"></div>
-            <div class="w-3 h-3 rounded-full bg-[#febc2e]"></div>
-            <div class="w-3 h-3 rounded-full bg-[#28c840]"></div>
-            <span class="ml-2 text-xs text-gray-500 font-mono">terminal</span>
+        <div class="rounded-xl border border-gray-800 bg-[#111111] overflow-hidden">
+          <div class="flex items-center gap-2 px-4 py-2.5 bg-[#0d0d0d] border-b border-gray-800">
+            <div class="flex items-center gap-1.5">
+              <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-[#febc2e]"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-[#28c840]"></div>
+            </div>
+            <div class="flex-1 mx-8">
+              <div class="bg-[#1a1a1a] rounded-md px-3 py-1 text-center">
+                <span class="text-[10px] text-gray-500 font-mono">terminal</span>
+              </div>
+            </div>
+            <button
+              id="copy-btn"
+              class="text-gray-500 hover:text-white transition-colors p-1 rounded cursor-pointer"
+              title="Copy to clipboard"
+            >
+              <Copy class="w-4 h-4 copy-icon" />
+              <Check class="w-4 h-4 check-icon hidden text-green-accent" />
+            </button>
           </div>
           <div class="p-6 font-mono text-sm space-y-1">
             <div><span class="text-gray-500"># Clone and build</span></div>
@@ -336,13 +420,29 @@ const steps = [
       </div>
     </section>
 
+    <script>
+      document.getElementById('copy-btn')?.addEventListener('click', function() {
+        navigator.clipboard.writeText('git clone https://github.com/peaktwilight/vibecheck && cd vibecheck && npm install && npx playwright install chromium && npm run build');
+        const copyIcon = this.querySelector('.copy-icon');
+        const checkIcon = this.querySelector('.check-icon');
+        if (copyIcon && checkIcon) {
+          copyIcon.classList.add('hidden');
+          checkIcon.classList.remove('hidden');
+          setTimeout(() => {
+            copyIcon.classList.remove('hidden');
+            checkIcon.classList.add('hidden');
+          }, 2000);
+        }
+      });
+    </script>
+
     <!-- ═══════════════ SHARE ═══════════════ -->
-    <section class="relative py-24 px-4">
+    <section class="relative py-28 px-4">
       <div class="max-w-2xl mx-auto text-center">
-        <h2 class="font-mono text-3xl sm:text-4xl font-bold text-white mb-4">
-          Share your <span class="text-green-accent">score</span>
+        <h2 class="font-mono text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+          Share your <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">score</span>
         </h2>
-        <p class="text-gray-500 font-sans mb-8">
+        <p class="text-gray-500 font-sans mb-8 text-base">
           Roasted your site? Share the shame (or glory).
         </p>
         <div class="flex gap-4 justify-center">
@@ -352,7 +452,7 @@ const steps = [
             rel="noopener"
             class="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-gray-800 bg-[#111] hover:border-green-accent/40 hover:bg-green-accent/5 transition-all duration-300 font-mono text-sm text-gray-300 hover:text-white"
           >
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            <Share2 class="w-4 h-4" />
             Share on X
           </a>
         </div>
@@ -360,24 +460,58 @@ const steps = [
     </section>
 
     <!-- ═══════════════ FOOTER ═══════════════ -->
-    <footer class="relative py-16 px-4 border-t border-gray-800/50">
-      <div class="max-w-4xl mx-auto text-center">
-        <p class="font-mono text-sm text-gray-600 mb-4">
-          Built with spite for generic UIs.
-        </p>
-        <a
-          href="https://github.com/peaktwilight/vibecheck"
-          target="_blank"
-          rel="noopener"
-          class="inline-flex items-center gap-2 text-gray-500 hover:text-green-accent transition-colors font-mono text-sm"
-        >
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-          peaktwilight/vibecheck
-        </a>
-        <p class="font-mono text-xs text-gray-600 mt-6">
+    <footer class="relative py-16 px-4">
+      <!-- Gradient top border -->
+      <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-accent/30 to-transparent"></div>
+
+      <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center sm:items-start justify-between gap-8">
+        <!-- Left: Logo + tagline -->
+        <div class="text-center sm:text-left">
+          <div class="font-mono text-lg font-bold text-white tracking-tight mb-2">
+            vibe<span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">check</span>
+          </div>
+          <p class="font-mono text-sm text-gray-600">
+            Built with spite for generic UIs.
+          </p>
+        </div>
+
+        <!-- Right: Links -->
+        <div class="flex items-center gap-6">
+          <a
+            href="https://github.com/peaktwilight/vibecheck"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 text-gray-500 hover:text-green-accent transition-colors font-mono text-sm"
+          >
+            <Github class="w-4 h-4" />
+            GitHub
+          </a>
+          <a
+            href="https://twitter.com/intent/tweet?text=My%20site%20got%20roasted%20by%20vibecheck%20%F0%9F%94%A5%20https://vibecheck.doruk.ch"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 text-gray-500 hover:text-green-accent transition-colors font-mono text-sm"
+          >
+            <Share2 class="w-4 h-4" />
+            Share
+          </a>
+          <a
+            href="https://doruk.ch"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 text-gray-500 hover:text-green-accent transition-colors font-mono text-sm"
+          >
+            <ExternalLink class="w-4 h-4" />
+            doruk.ch
+          </a>
+        </div>
+      </div>
+
+      <div class="max-w-4xl mx-auto mt-8 pt-6 border-t border-gray-800/30 text-center">
+        <p class="font-mono text-xs text-gray-600">
           Made by <a href="https://github.com/peaktwilight" target="_blank" rel="noopener" class="text-gray-400 hover:text-green-accent transition-colors">@peaktwilight</a>
           <span class="mx-2">&middot;</span>
-          <a href="https://doruk.ch" target="_blank" rel="noopener" class="text-gray-400 hover:text-green-accent transition-colors">doruk.ch</a>
+          MIT License
         </p>
       </div>
     </footer>
