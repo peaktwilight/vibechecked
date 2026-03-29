@@ -124,7 +124,7 @@ Vibecheck generates a 1200x630 PNG scorecard (Twitter/OG image optimized) you ca
 ## Development
 
 ```bash
-git clone https://github.com/peaktwilight/vibecheck
+git clone https://github.com/peaktwilight/vibechecked
 cd vibecheck
 npm install
 npx playwright install chromium
