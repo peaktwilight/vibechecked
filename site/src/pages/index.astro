@@ -394,65 +394,28 @@ const verdicts = [
       </div>
     </section>
 
-    <!-- ═══════════════ QUICK START ═══════════════ -->
-    <section class="relative py-28 px-4">
-      <div class="max-w-2xl mx-auto">
-        <div class="text-center mb-12">
-          <h2 class="font-mono text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
-            Quick <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">start</span>
-          </h2>
+    <!-- ═══════════════ INSTALL ═══════════════ -->
+    <section class="relative py-28 px-4" id="install">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="font-mono text-3xl md:text-5xl font-bold text-white mb-4">
+          Try it <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">now</span>
+        </h2>
+        <p class="text-gray-500 mb-10">Clone, build, roast. Under 60 seconds.</p>
+
+        <!-- Big copy-able command -->
+        <div class="relative group">
+          <div class="rounded-xl border border-gray-800 bg-[#111] p-6 font-mono text-left">
+            <div class="text-gray-500 text-xs mb-3"># one-liner setup</div>
+            <div class="text-green-accent text-sm sm:text-base break-all" id="install-cmd">git clone https://github.com/peaktwilight/vibecheck && cd vibecheck && npm i && npx playwright install chromium && npm run build</div>
+            <div class="text-gray-500 text-xs mt-4 mb-1"># then roast any site</div>
+            <div class="text-white text-sm sm:text-base">node dist/cli.js https://your-site.com</div>
+          </div>
+          <button onclick="navigator.clipboard.writeText(document.getElementById('install-cmd').textContent); this.textContent='Copied!'; setTimeout(() => this.textContent='Copy', 2000)" class="absolute top-4 right-4 px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white text-xs font-mono rounded-lg transition-colors cursor-pointer">Copy</button>
         </div>
 
-        <div class="rounded-xl border border-gray-800 bg-[#111111] overflow-hidden">
-          <div class="flex items-center gap-2 px-4 py-2.5 bg-[#0d0d0d] border-b border-gray-800">
-            <div class="flex items-center gap-1.5">
-              <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></div>
-              <div class="w-2.5 h-2.5 rounded-full bg-[#febc2e]"></div>
-              <div class="w-2.5 h-2.5 rounded-full bg-[#28c840]"></div>
-            </div>
-            <div class="flex-1 mx-8">
-              <div class="bg-[#1a1a1a] rounded-md px-3 py-1 text-center">
-                <span class="text-[10px] text-gray-500 font-mono">terminal</span>
-              </div>
-            </div>
-            <button
-              id="copy-btn"
-              class="text-gray-500 hover:text-white transition-colors p-1 rounded cursor-pointer"
-              title="Copy to clipboard"
-              aria-label="Copy to clipboard"
-            >
-              <Copy class="w-4 h-4 copy-icon" />
-              <Check class="w-4 h-4 check-icon hidden text-green-accent" />
-            </button>
-          </div>
-          <div class="p-6 font-mono text-sm space-y-1">
-            <div><span class="text-gray-500"># Clone and build</span></div>
-            <div><span class="text-green-accent">$</span> <span class="text-gray-200">git clone https://github.com/peaktwilight/vibecheck</span></div>
-            <div><span class="text-green-accent">$</span> <span class="text-gray-200">cd vibecheck && npm install</span></div>
-            <div><span class="text-green-accent">$</span> <span class="text-gray-200">npx playwright install chromium</span></div>
-            <div><span class="text-green-accent">$</span> <span class="text-gray-200">npm run build</span></div>
-            <div class="pt-3"><span class="text-gray-500"># Roast a website</span></div>
-            <div><span class="text-green-accent">$</span> <span class="text-gray-200">node dist/cli.js https://your-site.com</span></div>
-          </div>
-        </div>
+        <p class="text-gray-600 text-xs mt-4 font-mono">Requires Node.js 18+ and Claude Code CLI</p>
       </div>
     </section>
-
-    <script>
-      document.getElementById('copy-btn')?.addEventListener('click', function() {
-        navigator.clipboard.writeText('git clone https://github.com/peaktwilight/vibecheck && cd vibecheck && npm install && npx playwright install chromium && npm run build');
-        const copyIcon = this.querySelector('.copy-icon');
-        const checkIcon = this.querySelector('.check-icon');
-        if (copyIcon && checkIcon) {
-          copyIcon.classList.add('hidden');
-          checkIcon.classList.remove('hidden');
-          setTimeout(() => {
-            copyIcon.classList.remove('hidden');
-            checkIcon.classList.add('hidden');
-          }, 2000);
-        }
-      });
-    </script>
 
     <!-- ═══════════════ SHARE ═══════════════ -->
     <section class="relative py-28 px-4">
