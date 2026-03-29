@@ -481,6 +481,68 @@ const verdicts = [
       </div>
     </section>
 
+    <!-- ═══════════════ FAQ ═══════════════ -->
+    <section class="relative py-28 px-4">
+      <div class="max-w-2xl mx-auto">
+        <h2 class="font-mono text-3xl md:text-5xl font-bold text-white mb-12 text-center">
+          FAQ
+        </h2>
+        <div class="space-y-4">
+
+          <details class="group border border-gray-800 rounded-xl bg-[#111] overflow-hidden">
+            <summary class="flex items-center justify-between px-6 py-5 cursor-pointer font-mono text-sm text-gray-200 hover:text-green-accent transition-colors">
+              Is this free?
+              <svg class="w-4 h-4 text-gray-600 group-open:rotate-180 transition-transform shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-6 pb-5 text-sm text-gray-400 leading-relaxed">
+              Yes. Completely free, open source, MIT licensed. Forever.
+            </div>
+          </details>
+
+          <details class="group border border-gray-800 rounded-xl bg-[#111] overflow-hidden">
+            <summary class="flex items-center justify-between px-6 py-5 cursor-pointer font-mono text-sm text-gray-200 hover:text-green-accent transition-colors">
+              Does it send my data anywhere?
+              <svg class="w-4 h-4 text-gray-600 group-open:rotate-180 transition-transform shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-6 pb-5 text-sm text-gray-400 leading-relaxed">
+              The screenshot is sent to Claude for analysis (via your local Claude CLI). Nothing is stored, logged, or shared. The tool runs entirely on your machine.
+            </div>
+          </details>
+
+          <details class="group border border-gray-800 rounded-xl bg-[#111] overflow-hidden">
+            <summary class="flex items-center justify-between px-6 py-5 cursor-pointer font-mono text-sm text-gray-200 hover:text-green-accent transition-colors">
+              What do I need to run it?
+              <svg class="w-4 h-4 text-gray-600 group-open:rotate-180 transition-transform shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-6 pb-5 text-sm text-gray-400 leading-relaxed">
+              Node.js 18+, the Claude Code CLI, and Playwright (for screenshots). That's it.
+            </div>
+          </details>
+
+          <details class="group border border-gray-800 rounded-xl bg-[#111] overflow-hidden">
+            <summary class="flex items-center justify-between px-6 py-5 cursor-pointer font-mono text-sm text-gray-200 hover:text-green-accent transition-colors">
+              Can I use it in CI/CD?
+              <svg class="w-4 h-4 text-gray-600 group-open:rotate-180 transition-transform shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-6 pb-5 text-sm text-gray-400 leading-relaxed">
+              Yes — use the --json flag to get machine-readable output. Pipe it to whatever you want.
+            </div>
+          </details>
+
+          <details class="group border border-gray-800 rounded-xl bg-[#111] overflow-hidden">
+            <summary class="flex items-center justify-between px-6 py-5 cursor-pointer font-mono text-sm text-gray-200 hover:text-green-accent transition-colors">
+              How accurate is the roast?
+              <svg class="w-4 h-4 text-gray-600 group-open:rotate-180 transition-transform shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-6 pb-5 text-sm text-gray-400 leading-relaxed">
+              It's Claude's opinion — brutally honest but subjective. The scores are consistent enough to compare sites, but don't take it too personally. Or do. We don't judge.
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
     <!-- ═══════════════ FOOTER ═══════════════ -->
     <footer class="relative py-16 px-4">
       <!-- Gradient top border -->
