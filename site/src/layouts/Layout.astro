@@ -47,6 +47,20 @@ const siteUrl = "https://vibecheck.doruk.ch";
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "vibecheck",
+      "description": "A CLI that screenshots any website and roasts the UI with scores on originality, layout, typography, and color.",
+      "url": "https://vibecheck.doruk.ch",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "macOS, Linux, Windows",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
   </head>
   <body class="bg-[#0a0a0a] text-gray-200 antialiased">
     <slot />
