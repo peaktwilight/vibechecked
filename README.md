@@ -10,7 +10,7 @@
 
 ## What is this?
 
-Vibecheck screenshots any website, sends it to Claude for brutal design analysis, and scores it across 5 dimensions. It detects 11 red flags of vibe-coded UIs — the purple gradients, the glassmorphism cards, the "Hero -> Features -> Pricing -> Footer" layout that every AI-generated landing page has. You get a roast, a verdict, and a shareable scorecard PNG.
+Vibecheck screenshots any website, uses AI for brutal design analysis, and scores it across 5 dimensions. It detects 11 red flags of vibe-coded UIs — the purple gradients, the glassmorphism cards, the "Hero -> Features -> Pricing -> Footer" layout that every AI-generated landing page has. You get a roast, a verdict, and a shareable scorecard PNG.
 
 **Features:**
 
@@ -131,7 +131,6 @@ node dist/cli.js https://your-app.vercel.app
 ## Requirements
 
 - Node.js 18+
-- [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) (`claude`) — used for vision analysis
 - Playwright Chromium (`npx playwright install chromium`)
 
 ## Development
@@ -148,7 +147,7 @@ node dist/cli.js https://your-app.vercel.app
 ## How it works
 
 1. Captures a 1440x900 @2x screenshot with Playwright (waits for network idle + animations)
-2. Sends it to Claude for vision-based design analysis
+2. Uses AI vision analysis
 3. Gets scores, a roast, red flags, and a verdict
 4. Prints a color-coded terminal scorecard + saves a shareable PNG
 
