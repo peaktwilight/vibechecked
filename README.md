@@ -228,6 +228,12 @@ node dist/cli.js https://your-app.vercel.app
 
 This entire tool was vibe-coded in a few hours. The irony is fully intentional.
 
+## Also by @peaktwilight
+
+- **[pwnkit](https://pwnkit.com)** — AI-powered autonomous pentesting framework. Agents that find, exploit, and verify real vulnerabilities.
+- **[unfcked](https://github.com/peaktwilight/unfcked)** — Find every production-breaking issue in your vibe-coded app. 45+ checks, zero config.
+- **[whatdiditdo](https://github.com/peaktwilight/whatdiditdo)** — One command to see everything your AI coding agent changed.
+
 ## License
 
 MIT
