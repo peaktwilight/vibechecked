@@ -7,7 +7,9 @@
     "vibechecked": "./dist/cli.js"
   },
   "scripts": {
+    "lint": "tsc --noEmit",
     "build": "tsc",
+    "test": "node --test test/*.test.mjs",
     "prepublishOnly": "npm run build",
     "start": "node dist/cli.js"
   },
