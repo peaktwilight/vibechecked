@@ -38,10 +38,12 @@ runs:
 
     - name: Run vibechecked
       id: vibecheck
+      env:
+        VIBECHECK_URL: ${{ inputs.url }}
       shell: bash
       run: |
         cd ${{ github.action_path }}
-        RESULT=$(node dist/cli.js --json --no-ai "${{ inputs.url }}" 2>/dev/null || node dist/cli.js --json --no-ai "${{ inputs.url }}")
+        RESULT=$(node dist/cli.js --json --no-ai "$VIBECHECK_URL" 2>/dev/null || node dist/cli.js --json --no-ai "$VIBECHECK_URL")
         echo "result<<EOF" >> $GITHUB_OUTPUT
         echo "$RESULT" >> $GITHUB_OUTPUT
         echo "EOF" >> $GITHUB_OUTPUT
@@ -53,10 +55,12 @@ runs:
     - name: Comment on PR
       if: github.event_name == 'pull_request'
       uses: actions/github-script@v7
+      env:
+        VIBECHECK_URL: ${{ inputs.url }}
       with:
         script: |
           const result = JSON.parse(`${{ steps.vibecheck.outputs.result }}`);
-          const url = '${{ inputs.url }}';
+          const url = process.env.VIBECHECK_URL;
           const s = result.scores;
 
           const bar = (val) => {
