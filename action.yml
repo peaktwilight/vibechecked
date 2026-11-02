@@ -39,9 +39,11 @@ runs:
     - name: Run vibechecked
       id: vibecheck
       shell: bash
+      env:
+        URL: ${{ inputs.url }}
       run: |
         cd ${{ github.action_path }}
-        RESULT=$(node dist/cli.js --json --no-ai "${{ inputs.url }}" 2>/dev/null || node dist/cli.js --json --no-ai "${{ inputs.url }}")
+        RESULT=$(node dist/cli.js --json --no-ai "$URL" 2>/dev/null || node dist/cli.js --json --no-ai "$URL")
         echo "result<<EOF" >> $GITHUB_OUTPUT
         echo "$RESULT" >> $GITHUB_OUTPUT
         echo "EOF" >> $GITHUB_OUTPUT
@@ -53,10 +55,12 @@ runs:
     - name: Comment on PR
       if: github.event_name == 'pull_request'
       uses: actions/github-script@v7
+      env:
+        URL: ${{ inputs.url }}
       with:
         script: |
           const result = JSON.parse(`${{ steps.vibecheck.outputs.result }}`);
-          const url = '${{ inputs.url }}';
+          const url = process.env.URL;
           const s = result.scores;
 
           const bar = (val) => {
@@ -126,9 +130,12 @@ runs:
     - name: Check threshold
       if: inputs.threshold != '0'
       shell: bash
+      env:
+        SCORE: ${{ steps.vibecheck.outputs.score }}
+        THRESHOLD: ${{ inputs.threshold }}
       run: |
-        SCORE=${{ steps.vibecheck.outputs.score }}
-        THRESHOLD=${{ inputs.threshold }}
+        SCORE="$SCORE"
+        THRESHOLD="$THRESHOLD"
         if [ "$SCORE" -lt "$THRESHOLD" ]; then
           echo "::error::vibechecked score ($SCORE) is below threshold ($THRESHOLD)"
           exit 1
